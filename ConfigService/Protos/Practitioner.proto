@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option csharp_namespace = "PractitionerService.Protos";
+
+service PractitionerProtoService {
+  rpc UpdateDepartmentPractitionerList (UpdateDepartmentPractitionerListRequest) returns (UpdateDepartmentPractitionerListReply); 
+  rpc UnmapDepartmentPractitionerMapping (UnmapDepartmentPractitionerMappingRequest) returns (UnmapDepartmentPractitionerMappingReply);  
+}
+
+message UpdateDepartmentPractitionerListRequest {
+  string Request = 1;
+}
+message UpdateDepartmentPractitionerListReply{	
+	string Reply = 1;	
+}
+message UnmapDepartmentPractitionerMappingRequest {
+  string Request = 1;
+}
+message UnmapDepartmentPractitionerMappingReply{	
+	string Reply = 1;	
+}

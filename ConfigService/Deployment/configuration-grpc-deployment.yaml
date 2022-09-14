@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: configuration-grpc
+spec:
+  selector:
+    matchLabels:
+      app: configuration-grpc-pod
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: configuration-grpc-pod
+    spec:
+      containers:
+        - name: configuration-grpc-container
+          image: 
+          resources:
+            requests:
+              cpu: "100m"
+            limits:
+              cpu: "200m"
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          env:
+            - name: "ASPNETCORE_ENVIRONMENT"
+              value: "Staging"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: configuration-grpc-service
+spec:
+  selector:
+    app: configuration-grpc-pod
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 80
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: config-grpc-autoscaler
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: configuration-grpc
+  minReplicas: 1
+  maxReplicas: 20
+  targetCPUUtilizationPercentage: 50

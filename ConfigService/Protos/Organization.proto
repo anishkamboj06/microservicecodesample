@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+option csharp_namespace = "ConfigurationService.Protos";
+
+service OrganizationProtoService {
+  rpc getGovernedByCount (Request) returns (Reply);
+  rpc getOrganizationTypeCount (Request) returns (Reply); 
+}
+
+message Request {
+  string Name = 1;
+}
+
+message Reply{	
+	string Response = 1;	
+}
